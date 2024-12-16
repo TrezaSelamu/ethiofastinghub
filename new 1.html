@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ethio Fasting Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url(bg.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        body:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.164);
+        }
+
+        .frame {
+            height: auto;
+            width: 870px;
+            backdrop-filter: blur(5px);
+            border: 1px solid #ecff9e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px white;
+            padding: 20px;
+        }
+
+        .login {
+            font-size: 50px;
+            font-weight: bold;
+            color: #ecff9e;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            font-family: "Times New Roman", serif;
+            font-size: 23px;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .fasting-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .method {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0px 0px 5px white;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Tooltip container */
+        .method .tooltip {
+            visibility: hidden;
+            width: 300px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .method:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .log {
+            width: 50%;
+            padding: 10px;
+            margin-top: 2rem;
+            font-size: 25px;
+            font-weight: bold;
+            outline: none;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: #ecff9e;
+        }
+
+        /* Style for small "Start Journey" buttons */
+        .method .start-journey {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 20px;
+            background-color: #ecff9e;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .method .start-journey:hover {
+            background-color: #c5d481;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="frame">
+        <div class="login">Ethio Fasting Hub</div>
+        <div class="description">Choose your fasting method to begin your wellness journey.</div>
+
+        <!-- Fasting Methods Section -->
+        <div class="fasting-methods">
+            <div class="method">Intermittent Fasting
+                <div class="tooltip">Cycles between eating and fasting within a set window (e.g., 16/8). Improves metabolism and balances insulin levels.</div>
+                <a href="new 2.html?method=Intermittent Fasting"><button class="start-journey">Start Journey</button></a>
+            </div>
+            <div class="method">Extended Fasting
+                <div class="tooltip">Fasting for longer than 24 hours, often lasting 48, 72 hours or more. Great for detox, fat loss, and autophagy.</div>
+                <a href="new 2.html?method=Extended Fasting"><button class="start-journey">Start Journey</button></a>
+            </div>
+            <div class="method">OMAD (One Meal A Day)
+                <div class="tooltip">Eating just one meal per day within a 1-hour window. Known for its simplicity and efficiency in boosting fat loss.</div>
+                <a href="new 2.html?method=OMAD"><button class="start-journey">Start Journey</button></a>
+            </div>
+            <div class="method">Water Fasting
+                <div class="tooltip">A fasting method where only water is consumed. Promotes detox, autophagy, and fat loss.</div>
+                <a href="new 2.html?method=Water Fasting"><button class="start-journey">Start Journey</button></a>
+            </div>
+            <div class="method">Warrior Fasting
+                <div class="tooltip">Eat small amounts of raw fruit and vegetables during the day, and one large meal at night. Focuses on primal eating patterns.</div>
+                <a href="new 2.html?method=Warrior Fasting"><button class="start-journey">Start Journey</button></a>
+            </div>
+            <div class="method">Alternate Day Fasting
+                <div class="tooltip">Alternate between days of eating normally and fasting days with minimal calories. Known for boosting weight loss and metabolism.</div>
+                <a href="new 2.html?method=Alternate Day Fasting"><button class="start-journey">Start Journey</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

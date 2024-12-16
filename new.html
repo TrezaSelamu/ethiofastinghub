@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url(bg.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        body:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.164);
+        }
+
+        .frame {
+            height: 400px;
+            width: 870px;
+            backdrop-filter: blur(5px);
+            border: 1px solid #ecff9e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px white;
+        }
+
+        .login {
+            font-size: 50px;
+            font-weight: bold;
+            color: #ecff9e;
+            margin-top: 0.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .email {
+            width: 90%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            margin: 0.5rem;
+            position: relative;
+        }
+
+        .email p {
+            font-family: "Times New Roman", serif;
+            font-size: 23px;
+            color: white;
+            text-align: center;
+        }
+
+        .log {
+            width: 100%;
+            padding: 15px;
+            margin-top: 4rem;
+            font-size: 25px;
+            font-weight: bold;
+            outline: none;
+            border: none;
+            border-radius: 90px;
+            cursor: pointer;
+            background-color: #ecff9e;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .log:hover {
+            background-color: #c5d481;
+        }
+
+        /* Style for the link wrapping the button */
+        a {
+            text-decoration: none; /* Remove default link styling */
+            display: block; /* Ensures button spans full width of its container */
+            width: 100%; /* Ensures button maintains its width */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="frame">
+        <div class="login">Welcome to Ethio Fasting Hub</div>
+        <div class="email">
+            <p>Embark on a path to better health and wellness. Discover various fasting methods, 
+            track your progress, and achieve your goals with personalized schedules and support. 
+            Let's start this transformative journey together!</p>
+        </div>
+        
+        <a href="new 1.html"><button class="log">Start</button></a>
+    </div>
+</body>
+
+</html>

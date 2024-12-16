@@ -1,0 +1,76 @@
+<svg width="300" height="225" viewBox="0 0 300 225" xmlns="http://www.w3.org/2000/svg">
+   
+    <!-- Realistic Road Path -->
+    <defs>
+        <!-- Road Pattern: Dark Gray Road with White Dashes -->
+        <pattern id="roadPattern" patternUnits="userSpaceOnUse" width="12" height="10">
+            <rect width="10" height="10" fill="black;"/>
+            <path d="M 5 0 L 5 10" stroke="white" stroke-width="2" stroke-dasharray="2, 3"/>
+        </pattern>
+		  <!-- Path for Curved Text -->
+        <path id="textCurvePath" d="M 40,92.5 C 90,0 210,0 260,92.5" />
+    </defs>
+
+    <!-- Draw Road with Pattern Fill -->
+    <path d="M 50,112.5 C 100,20 200,20 250,112.5 S 200,205 50,112.5"
+          fill="none" stroke="url(#roadPattern)" stroke-width="20"/>
+
+    <!-- Obese Human Icon -->
+    <g transform="translate(112, 60) scale(0.6)">
+        <g fill="#8cba93">
+            <!-- Head -->
+            <circle cx="0" cy="15" r="18"/>
+            <!-- Body -->
+            <ellipse cx="0" cy="65" rx="38" ry="40"/>
+            <!-- Legs -->
+            <ellipse cx="-15" cy="117" rx="7" ry="22"/>
+            <ellipse cx="15" cy="120" rx="7" ry="22"/>
+            <!-- Arms -->
+            <ellipse cx="-45" cy="65" rx="7" ry="30"/>
+            <ellipse cx="45" cy="65" rx="7" ry="30"/>
+        </g>
+    </g>
+
+    <!-- Fit Human Icon -->
+    <g transform="translate(225, 90) scale(0.6)">
+        <g fill="#4a90e2">
+            <!-- Head -->
+            <circle cx="0" cy="30" r="15"/>
+            <!-- Body -->
+            <path d="M-15 45 Q0 70, 15 45 L15 95 Q0 115, -15 95 Z"/>
+            <!-- Legs -->
+            <rect x="-7" y="105" width="7" height="30" rx="3" ry="3"/>
+            <rect x="7" y="105" width="7" height="30" rx="3" ry="3"/>
+            <!-- Arms -->
+            <rect x="-30" y="75" width="7" height="30" rx="3" ry="3"/>
+            <rect x="23" y="75" width="7" height="30" rx="3" ry="3"/>
+        </g>
+    </g>
+
+    <!-- Hour Hand -->
+    <line id="hourHand" x1="150" y1="112.5" x2="150" y2="60" stroke="black" stroke-width="5" stroke-linecap="round" />
+    <!-- Minute Hand -->
+    <line id="minuteHand" x1="150" y1="112.5" x2="150" y2="55" stroke="red" stroke-width="3" stroke-linecap="round" />
+    <!-- Second Hand -->
+    <line id="secondHand" x1="150" y1="112.5" x2="150" y2="50" stroke="#915e85" stroke-width="2" stroke-linecap="round" />
+    
+    <!-- Animated Second Hand -->
+    <style>
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      #secondHand {
+        transform-origin: 150px 112.5px;
+        animation: rotate 60s linear infinite;
+      }
+    </style>
+
+    <!-- Curved Text along the Road Path -->
+    <text font-family="Arial, sans-serif" font-size="25" fill="#c9af67" font-weight="bold">
+        <textPath href="#textCurvePath" startOffset="50%" text-anchor="middle">EthioFastingHub</textPath>
+    </text>
+</svg>
+
+
+
