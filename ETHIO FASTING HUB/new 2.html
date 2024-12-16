@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Start Your Fasting Journey</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Mukta', sans-serif;
+            background: url(bg1.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            width: 400px;
+            border: 1px solid #ecff9e;
+        }
+
+        .form-container h1 {
+            color: #ecff9e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            color: white;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #ecff9e;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #c5d481;
+        }
+    </style>
+
+    <script>
+        // Function to display the selected fasting method
+        function setFastingMethod() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const fastingMethod = urlParams.get('method');
+            document.getElementById('fasting-method').innerText = fastingMethod;
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get form values
+            const weight = document.getElementById('initial-weight').value;
+            const height = document.getElementById('height').value;
+            const date = document.getElementById('initial-date').value;
+            const fastingMethod = new URLSearchParams(window.location.search).get('method');
+
+            // Redirect to the calculation page with the fasting method
+            window.location.href = `new 3.html?method=${encodeURIComponent(fastingMethod)}&weight=${encodeURIComponent(weight)}&height=${encodeURIComponent(height)}&date=${encodeURIComponent(date)}`;
+        }
+    </script>
+</head>
+
+<body onload="setFastingMethod()">
+
+    <div class="form-container">
+        <h1 id="fasting-method"></h1>
+        <h2>Enter Your Details</h2>
+
+        <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="initial-weight">Initial Weight (kg)</label>
+                <input type="number" id="initial-weight" name="initial-weight" placeholder="Enter your current weight" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" name="height" placeholder="Enter your height in cm" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="initial-date">Initial Date</label>
+                <input type="date" id="initial-date" name="initial-date" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Start Journey</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

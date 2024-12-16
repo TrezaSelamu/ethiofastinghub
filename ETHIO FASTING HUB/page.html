@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethio Fasting Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, input {
+      font-family: "Poppins", sans-serif;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      background-color: #fff;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .forms-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .signin-signup {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      left: 75%;
+      width: 50%;
+      transition: 1s 0.7s ease-in-out;
+      display: grid;
+      grid-template-columns: 1fr;
+      z-index: 5;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0rem 5rem;
+      transition: all 0.2s 0.7s;
+      overflow: hidden;
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+
+    form.sign-up-form {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    form.sign-in-form {
+      z-index: 2;
+    }
+
+    .title {
+      font-size: 2.2rem;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    .input-field {
+      max-width: 380px;
+      width: 100%;
+      background-color: #f0f0f0;
+      margin: 10px 0;
+      height: 55px;
+      border-radius: 55px;
+      display: grid;
+      grid-template-columns: 15% 85%;
+      padding: 0 0.4rem;
+      position: relative;
+    }
+
+    .input-field i {
+      text-align: center;
+      line-height: 55px;
+      color: #acacac;
+      transition: 0.5s;
+      font-size: 1.1rem;
+    }
+
+    .input-field input {
+      background: none;
+      outline: none;
+      border: none;
+      line-height: 1;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .input-field input::placeholder {
+      color: #aaa;
+      font-weight: 500;
+    }
+
+    .social-text {
+      padding: 0.7rem 0;
+      font-size: 1rem;
+    }
+
+    .social-media {
+      display: flex;
+      justify-content: center;
+    }
+
+    .social-icon {
+      height: 46px;
+      width: 46px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0.45rem;
+      color: #333;
+      border-radius: 50%;
+      border: 1px solid #333;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+
+    .social-icon:hover {
+      color: #4481eb;
+      border-color: #4481eb;
+    }
+
+    .btn {
+      width: 150px;
+      background-color: #5995fd;
+      border: none;
+      outline: none;
+      height: 49px;
+      border-radius: 49px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+    .btn:hover {
+      background-color: #4d84e2;
+    }
+
+    .panels-container {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .container:before {
+      content: "";
+      position: absolute;
+      height: 2000px;
+      width: 2000px;
+      top: -10%;
+      right: 48%;
+      transform: translateY(-50%);
+      background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+      transition: 1.8s ease-in-out;
+      border-radius: 50%;
+      z-index: 6;
+    }
+
+    .image {
+      width: 100%;
+      transition: transform 1.1s ease-in-out;
+      transition-delay: 0.4s;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-around;
+      text-align: center;
+      z-index: 6;
+    }
+
+    .left-panel {
+      pointer-events: all;
+      padding: 3rem 17% 2rem 12%;
+    }
+
+    .right-panel {
+      pointer-events: none;
+      padding: 3rem 12% 2rem 17%;
+    }
+
+    .panel .content {
+      color: #fff;
+      transition: transform 0.9s ease-in-out;
+      transition-delay: 0.6s;
+    }
+
+    .panel h3 {
+      font-weight: 600;
+      line-height: 1;
+      font-size: 1.5rem;
+    }
+
+    .panel p {
+      font-size: 0.95rem;
+      padding: 0.7rem 0;
+    }
+
+    .btn.transparent {
+      margin: 0;
+      background: none;
+      border: 2px solid #fff;
+      width: 130px;
+      height: 41px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .right-panel .image,
+    .right-panel .content {
+      transform: translateX(800px);
+    }
+
+    /* ANIMATION */
+
+    .container.sign-up-mode:before {
+      transform: translate(100%, -50%);
+      right: 52%;
+    }
+
+    .container.sign-up-mode .left-panel .image,
+    .container.sign-up-mode .left-panel .content {
+      transform: translateX(-800px);
+    }
+
+    .container.sign-up-mode .signin-signup {
+      left: 25%;
+    }
+
+    .container.sign-up-mode form.sign-up-form {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .container.sign-up-mode form.sign-in-form {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .container.sign-up-mode .right-panel .image,
+    .container.sign-up-mode .right-panel .content {
+      transform: translateX(0%);
+    }
+
+    .container.sign-up-mode .left-panel {
+      pointer-events: none;
+    }
+
+    .container.sign-up-mode .right-panel {
+      pointer-events: all;
+    }
+
+    @media (max-width: 870px) {
+      .container {
+        min-height: 800px;
+        height: 100vh;
+      }
+      .signin-signup {
+        width: 100%;
+        top: 95%;
+        transform: translate(-50%, -100%);
+        transition: 1s 0.8s ease-in-out;
+      }
+
+      .signin-signup,
+      .container.sign-up-mode .signin-signup {
+        left: 50%;
+      }
+
+      .panels-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 2fr 1fr;
+      }
+
+      .panel {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 2.5rem 8%;
+        grid-column: 1 / 2;
+      }
+
+      .right-panel {
+        grid-row: 3 / 4;
+      }
+
+      .left-panel {
+        grid-row: 1 / 2;
+      }
+
+      .image {
+        width: 200px;
+        transition: transform 0.9s ease-in-out;
+        transition-delay: 0.6s;
+      }
+
+      .panel .content {
+        padding-right: 15%;
+        transition: transform 0.9s ease-in-out;
+        transition-delay: 0.8s;
+      }
+
+      .panel h3 {
+        font-size: 1.2rem;
+      }
+
+      .panel p {
+        font-size: 0.7rem;
+        padding: 0.5rem 0;
+      }
+
+      .btn.transparent {
+        width: 110px;
+        height: 35px;
+        font-size: 0.7rem;
+      }
+
+      .container:before {
+        width: 1500px;
+        height: 1500px;
+        transform: translateX(-50%);
+        left: 30%;
+        bottom: 68%;
+        right: initial;
+        top: initial;
+        transition: 2s ease-in-out;
+      }
+
+      .container.sign-up-mode:before {
+        transform: translate(-50%, 100%);
+        bottom: 32%;
+        right: initial;
+      }
+
+      .container.sign-up-mode .left-panel .image,
+      .container.sign-up-mode .left-panel .content {
+        transform: translateY(-300px);
+      }
+
+      .container.sign-up-mode .right-panel .image,
+      .container.sign-up-mode .right-panel .content {
+        transform: translateY(0px);
+      }
+
+      .right-panel .image,
+      .right-panel .content {
+        transform: translateY(300px);
+      }
+
+      .container.sign-up-mode .signin-signup {
+        top: 5%;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    @media (max-width: 570px) {
+      form {
+        padding: 0 1.5rem;
+      }
+
+      .image {
+        display: none;
+      }
+      .panel .content {
+        padding: 0.5rem 1rem;
+      }
+      .container {
+        padding: 1.5rem;
+      }
+
+      .container:before {
+        bottom: 72%;
+        left: 50%;
+      }
+
+      .container.sign-up-mode:before {
+        bottom: 28%;
+        left: 50%;
+      }
+    }
+
+    /* Additional CSS for fasting methods grid */
+    .methods-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .method-item {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .method-item:hover {
+      background-color: #e0e0e0;
+      transform: scale(1.05);
+    }
+
+    .method-item h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .method-item p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .timeline-container {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .timeline {
+      position: relative;
+      height: 50px;
+      background-color: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .timeline-progress {
+      height: 100%;
+      background-color: #5995fd;
+      transition: width 0.3s;
+    }
+
+    .timeline-item {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border: 2px solid #5995fd;
+      border-radius: 50%;
+      position: relative;
+      margin: 0 5px;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    .timeline-item.completed {
+      background-color: #5995fd;
+      color: #fff;
+    }
+
+    .timeline-date {
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Landing Page -->
+  <section id="landing-page" class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <!-- Sign In Form -->
+        <form class="sign-in-form">
+          <h2 class="title">Welcome Back</h2>
+          <button class="btn" onclick="navigateToMethods()">Get Started</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fasting Methods Section -->
+  <section id="fasting-methods" class="container" style="display:none;">
+    <h2>Select Your Fasting Method</h2>
+    <div class="methods-container">
+      <div class="method-item" onclick="showSchedule('Water Fast')">
+        <h3>Water Fast</h3>
+        <p>During this fast, only water is consumed for a set period.</p>
+        <button class="btn">Start</button>
+      </div>
+      <div class="method-item" onclick="showSchedule('OMAD (One Meal a Day)')">
+        <h3>OMAD (One Meal a Day)</h3>
+        <p>You eat only one meal during the day, fasting the rest of the time.</p>
+        <button class="btn">Start</button>
+      </div>
+      <div class="method-item" onclick="showSchedule('Warrior Diet')">
+        <h3>Warrior Diet</h3>
+        <p>A fasting method that involves eating small amounts of raw fruits and vegetables during the day and one large meal at night.</p>
+        <button class="btn">Start</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule Section -->
+  <section id="fasting-schedule" class="container" style="display:none;">
+    <h2 id="method-title"></h2>
+    <form id="schedule-form">
+      <div class="form-group">
+        <label for="start-kg">Enter Your Start Weight (kg):</label>
+        <input type="number" id="start-kg" name="start-kg" required>
+      </div>
+
+      <div class="form-group">
+        <label for="start-date">Select Start Date (Ethiopian Calendar):</label>
+        <input type="date" id="start-date" name="start-date" required>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Select Duration (Months):</label>
+        <select id="duration" name="duration" onchange="showTimeline()">
+          <option value="1">1 Month</option>
+          <option value="2">2 Months</option>
+          <option value="3">3 Months</option>
+          <option value="4">4 Months</option>
+          <option value="5">5 Months</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn" onclick="navigateToTimeline()">Generate Timeline</button>
+    </form>
+  </section>
+
+  <!-- Timeline Summary Section -->
+  <section id="timeline-summary" class="container" style="display:none;">
+    <h2>Track Your Progress</h2>
+    <div class="timeline-container">
+      <div id="timeline" class="timeline"></div>
+    </div>
+    <button class="btn" onclick="resetProgress()">Reset Progress</button>
+  </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Function to navigate to the Fasting Methods Page
+  function navigateToMethods() {
+    document.getElementById('landing-page').style.display = 'none';
+    document.getElementById('fasting-methods').style.display = 'block';
+  }
+
+  // Function to show the selected fasting method's schedule
+  function showSchedule(method) {
+    document.getElementById('method-title').innerText = `${method} Schedule`;
+    document.getElementById('fasting-methods').style.display = 'none';
+    document.getElementById('fasting-schedule').style.display = 'block';
+  }
+
+  // Function to navigate to the Timeline Summary Page
+  function navigateToTimeline() {
+    const startDate = new Date(document.getElementById('start-date').value);
+    const duration = parseInt(document.getElementById('duration').value);
+    const endDate = new Date(startDate);
+    endDate.setMonth(startDate.getMonth() + duration);
+
+    document.getElementById('fasting-schedule').style.display = 'none';
+    document.getElementById('timeline-summary').style.display = 'block';
+    generateTimeline(startDate, endDate);
+  }
+
+  // Function to reset progress and go back to the Landing Page
+  function resetProgress() {
+    document.getElementById('landing-page').style.display = 'block';
+    document.getElementById('fasting-methods').style.display = 'none';
+    document.getElementById('fasting-schedule').style.display = 'none';
+    document.getElementById('timeline-summary').style.display = 'none';
+  }
+
+  // Function to generate the timeline based on the start and end dates
+  function generateTimeline(startDate, endDate) {
+    const timeline = document.getElementById('timeline');
+    timeline.innerHTML = ''; // Clear previous timeline
+
+    let currentDate = new Date(startDate);
+    const today = new Date();
+    const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+    const progress = Math.min(Math.ceil((today - startDate) / (1000 * 60 * 60 * 24)), totalDays);
+
+    // Create the progress bar
+    const progressBar = document.createElement('div');
+    progressBar.classList.add('timeline-progress');
+    progressBar.style.width = `${(progress / totalDays) * 100}%`;
+    timeline.appendChild(progressBar);
+
+    // Create timeline items
+    while (currentDate <= endDate) {
+      const timelineItem = document.createElement('div');
+      timelineItem.classList.add('timeline-item');
+      if (currentDate <= today) {
+        timelineItem.classList.add('completed');
+      }
+      const dateLabel = document.createElement('div');
+      dateLabel.classList.add('timeline-date');
+      dateLabel.innerText = `${currentDate.getDate()}/${currentDate.getMonth() + 1}`;
+      timelineItem.appendChild(dateLabel);
+      timeline.appendChild(timelineItem);
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+  }
+
+  // Event listener for the 'Get Started' button
+  document.querySelector('.sign-in-form .btn').addEventListener('click', navigateToMethods);
+
+  // Event listeners for the 'Start' buttons in fasting methods
+  document.querySelectorAll('.method-item button').forEach(button => {
+    button.addEventListener('click', () => {
+      const method = button.parentElement.querySelector('h3').innerText;
+      showSchedule(method);
+    });
+  });
+
+  // Event listener for the 'Generate Timeline' button
+  document.getElementById('schedule-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    navigateToTimeline();
+  });
+});
+
+
+</script>
+
+</body>
+</html>

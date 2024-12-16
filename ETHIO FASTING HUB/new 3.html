@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculate Your Fasting Plan</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Mukta', sans-serif;
+            background-color: #33543b;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Flex container for the entire layout */
+        .flex-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left side with image and motivational text */
+        .left-side {
+            flex: 1;
+            position: relative;
+            overflow: hidden; /* Hide overflow for sliding effect */
+        }
+
+        /* Image slider for sliding effect */
+        .image-slider {
+            display: flex;
+            width: 300%; /* Total width for 3 images */
+            animation: slide 20s infinite; /* Adjusted duration of the slide effect */
+            position: absolute;
+            transition: transform 4s ease; /* Smooth transition */
+        }
+
+        /* Individual images with zoom effect */
+        .image-slider img {
+            width: 33.333%; /* Each image takes one-third of the container */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Ensure images are block elements */
+            transform: scale(1); /* Default scale */
+            transition: transform 4s ease; /* Smooth zoom effect */
+        }
+
+        /* Keyframes for sliding animation with zoom effect */
+        @keyframes slide {
+            0% { transform: translateX(0) scale(1.05); }
+            10% { transform: translateX(0) scale(1.05); }
+            20% { transform: translateX(0) scale(1.05); }
+            30% { transform: translateX(-33.333%) scale(1.35); } /* Slight zoom during transition */
+            40% { transform: translateX(-33.333%) scale(1); }
+            50% { transform: translateX(-66.666%) scale(1.35); } /* Slight zoom during transition */
+            60% { transform: translateX(-66.666%) scale(1.05); }
+            70% { transform: translateX(-33.333%) scale(1.05); }
+            80% { transform: translateX(-33.333%) scale(1.05); }
+            90% { transform: translateX(0) scale(1.05); }
+            100% { transform: translateX(0) scale(1.05); }
+        }
+
+        /* Dark overlay on the image */
+        .left-side::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Motivational text over the image */
+        .left-side .motivational-text {
+            position: absolute; /* Position it absolutely to center it in the parent container */
+            top: 50%; /* Move to the middle of the parent container */
+            left: 50%; /* Move to the middle of the parent container */
+            transform: translate(-50%, -50%); /* Offset the element by half its width and height to center it */
+            color: #ecff9e;
+            font-family: 'Times New Roman', serif;
+            font-size: 70px;
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px red;
+        }
+
+        /* Right side with the form */
+        .right-side {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #33543b;
+            padding: 20px;
+            position: relative;
+            background-image: radial-gradient(circle 200px at 15% 30%, #ebc42a 40%, transparent 50%),
+                              radial-gradient(circle 150px at 10% 80%, #ebc42a 40%, transparent 50%),
+                              radial-gradient(circle 150px at 50% 80%, #ebc42a 40%, transparent 50%),
+                              radial-gradient(circle 100px at 85% 20%, #ebc42a 40%, transparent 50%);
+        }
+
+        .form-container {
+            background-color: #33543b;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 3px solid #ecff9e;
+            z-index: 1;
+        }
+
+        .form-container h1 {
+            color: #ecff9e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container h2 {
+            color: #ecff9e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .result-container {
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-box {
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 7px #ecff9e;
+            border: 3px solid #ecff9e;
+            color: #f6faed;
+            font-size: 1.1rem;
+        }
+
+        .result-box p {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #ecff9e;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #c5d481;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+            }
+
+            .left-side {
+                height: 50vh;
+            }
+
+            .right-side {
+                padding: 20px;
+            }
+        }
+    </style>
+
+    <script>
+        let estimatedMonths = 0; // Declare a global variable to store estimated months
+
+function calculate() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const weight = parseFloat(urlParams.get('weight'));
+    const height = parseFloat(urlParams.get('height'));
+    const fastingMethod = urlParams.get('method');
+
+    const heightInMeters = height / 100;
+    const bmi = weight / (heightInMeters * heightInMeters);
+
+    const targetBmi = 18.5;
+    const targetWeight = targetBmi * (heightInMeters * heightInMeters);
+    const weightLoss = weight - targetWeight;
+
+    let fastingDuration = "Not calculated";
+    estimatedMonths = 0; // Reset estimatedMonths before calculation
+    let weightLossRatePerMonth = 0;
+
+    if (weightLoss > 0) {
+        switch (fastingMethod) {
+            case 'Intermittent Fasting':
+                fastingDuration = "Recommended fasting duration: 16 hours daily";
+                weightLossRatePerMonth = 4;
+                break;
+            case 'Extended Fasting':
+                fastingDuration = "Recommended fasting duration: 48 hours every 3 days";
+                weightLossRatePerMonth = 5;
+                break;
+            case 'OMAD':
+                fastingDuration = "Recommended fasting duration: 23 hours daily";
+                weightLossRatePerMonth = 4;
+                break;
+            case 'Water Fasting':
+                fastingDuration = "Recommended fasting duration: 24-72 hours periodically";
+                weightLossRatePerMonth = 6;
+                break;
+            case 'Warrior Fasting':
+                fastingDuration = "Recommended fasting duration: 20 hours daily";
+                weightLossRatePerMonth = 4;
+                break;
+            case 'Alternate Day Fasting':
+                fastingDuration = "Recommended fasting duration: Alternate days of fasting and eating";
+                weightLossRatePerMonth = 5;
+                break;
+        }
+
+        estimatedMonths = weightLoss / weightLossRatePerMonth;
+        estimatedMonths = Math.floor(estimatedMonths);
+    } else {
+        fastingDuration = "No weight loss needed. Your BMI is already below 18.5.";
+    }
+
+    // Display results
+    document.getElementById("result").innerHTML = `
+        <div class="result-box">
+            <p>Your BMI: ${bmi.toFixed(2)}</p>
+            <p>Weight Loss Needed: ${weightLoss > 0 ? weightLoss.toFixed(2) + " kg" : "0 kg"}</p>
+            <p>${fastingDuration}</p>
+            <p>Estimated Weight Loss Duration: ${estimatedMonths} month(s)</p>
+            <p>To achieve a BMI of 18.5, your target weight should be: ${targetWeight.toFixed(2)} kg</p>
+        </div>
+    `;
+}
+
+function startJourney() {
+    // Redirect to the journey page with estimated months as a URL parameter
+    window.location.href = `new 4.html?estimatedMonths=${estimatedMonths}`; // Change to your actual journey page URL
+}
+
+    </script>
+</head>
+
+<body onload="calculate()">
+    <div class="flex-container">
+        <div class="left-side">
+            <div class="image-slider">
+                <img src="bg1.jpg" alt="Healthy Food 1" />
+                <img src="bg2.jpg" alt="Healthy Food 2" />
+                <img src="bg.jpg" alt="Healthy Food 3" />
+            </div>
+            <div class="motivational-text">
+                Your Journey to Health Begins Here!
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="form-container">
+                <h1>Fasting Plan Calculation</h1>
+                <h2 id="result-header">Results</h2>
+                <div id="result" class="result-container"></div>
+                <h2 style="color: #ecff9e; text-align: center;">Do you want to start now?</h2>
+                <div id="yes-no-buttons" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button class="submit-btn" onclick="startJourney()">Yes</button>
+                    <button class="submit-btn" onclick="showNoMessage()">No</button>
+                </div>
+                <div id="no-message" style="display: none; margin-top: 20px; color: #ecff9e;">
+                    Thank you for considering the journey!
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

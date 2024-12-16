@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Fasting Timeline</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Mukta', sans-serif;
+            background-color: #33543b;
+            color: #ecff9e;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item {
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            margin: 10px;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ebc42a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .timeline-item h3 {
+            margin: 0 0 5px 0;
+        }
+
+        .timeline-item p {
+            margin: 5px 0;
+        }
+
+        .back-button {
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #ecff9e;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #c5d481;
+        }
+
+        .total-days {
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="timeline">
+        <h1>Your Fasting Timeline</h1>
+        <div class="total-days" id="total-days"></div>
+        <div id="timeline-items"></div>
+        <button class="back-button" onclick="window.history.back()">Back</button>
+    </div>
+
+    <script>
+        // Function to create the timeline dynamically based on estimated months
+        function createTimeline() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const estimatedMonths = parseInt(urlParams.get('estimatedMonths'), 10) || 0;
+            const timelineContainer = document.getElementById('timeline-items');
+            const totalDaysContainer = document.getElementById('total-days');
+
+            // Calculate total days based on estimated months (30 days per month)
+            const totalDays = estimatedMonths * 30; // You can adjust this if you want to use average month days
+            totalDaysContainer.innerText = `Total Estimated Days: ${totalDays} days`;
+
+            // Sample content for each month
+            const timelineContent = [
+                "Start your fasting journey with Intermittent Fasting. Aim to reduce 2-4 kg.",
+                "Continue with your chosen method. Aim for a weight loss of another 2-4 kg.",
+                "Assess your progress and adjust your fasting schedule as needed.",
+                "Focus on maintaining a balanced diet while fasting.",
+                "Continue tracking your progress and make necessary adjustments.",
+                "Celebrate your progress! Continue to focus on your health goals."
+            ];
+
+            // Create timeline items based on the estimated months
+            for (let i = 0; i < estimatedMonths; i++) {
+                const item = document.createElement('div');
+                item.classList.add('timeline-item');
+                item.innerHTML = `<div class="circle">${i + 1}</div><h3>Month ${i + 1}</h3><p>${timelineContent[i] || "Keep going strong!"}</p>`;
+                timelineContainer.appendChild(item);
+            }
+        }
+
+        // Call the createTimeline function when the page loads
+        window.onload = createTimeline;
+    </script>
+
+</body>
+
+</html>
